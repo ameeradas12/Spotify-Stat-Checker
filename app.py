@@ -1,10 +1,15 @@
 import sys
+import requests
+
 from PyQt6.QtWidgets import (
-    QApplication, QWidget
+    QApplication, QWidget,
 )
+from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtGui import QPixmap
 from PyQt6 import uic
 
-from main import get_top_artists, get_top_tracks
+
+from main import get_top_artists, get_top_tracks, getNowPlaying
 
 class StatsWindow(QWidget):
     def load_data(self):
@@ -22,12 +27,29 @@ class StatsWindow(QWidget):
         for artist in get_top_artists(selectedRange):
             topArtistList.addItem(artist)
 
+    def update_now_playing(self):
+        currentTrack = getNowPlaying()
 
+        if currentTrack is None:
+            self.trackName.setText("Nothing playing")
+            self.albumCover.clear()
+        else:
+            self.trackName.setText(f"{currentTrack['name']} - {currentTrack['artist']}")
+
+            data = requests.get(currentTrack["albumCover"]).content
+            pixmap = QPixmap()
+            pixmap.loadFromData(data)
+            pixmap = pixmap.scaled(150, 150,
+            Qt.AspectRatioMode.KeepAspectRatio,
+            Qt.TransformationMode.SmoothTransformation)
+            self.albumCover.setPixmap(pixmap)
+    
     def __init__(self):
         super().__init__()
         uic.loadUi("stats.ui", self)
         self.load_data()
         self.range_box.currentIndexChanged.connect(self.load_data)
+        self.update_now_playing()
 
 
 app = QApplication(sys.argv)

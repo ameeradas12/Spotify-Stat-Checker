@@ -55,9 +55,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>70</y>
+        <y>39</y>
         <width>1091</width>
-        <height>50</height>
+        <height>81</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -69,6 +69,12 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QLabel" name="albumCover">
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>150</height>
+          </size>
+         </property>
          <property name="text">
           <string>AlbumCover</string>
          </property>
@@ -104,7 +110,7 @@
        <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
