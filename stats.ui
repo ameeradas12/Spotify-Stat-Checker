@@ -22,42 +22,13 @@
      <property name="frameShadow">
       <enum>QFrame::Shadow::Raised</enum>
      </property>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>380</x>
-        <y>0</y>
-        <width>311</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Segoe UI Black</family>
-        <pointsize>18</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Spotify Stat Viewer</string>
-      </property>
-      <property name="textFormat">
-       <enum>Qt::TextFormat::AutoText</enum>
-      </property>
-      <property name="scaledContents">
-       <bool>false</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QFrame" name="CurrentSongFrame">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>39</y>
-        <width>1091</width>
-        <height>81</height>
+        <y>9</y>
+        <width>1061</width>
+        <height>131</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -69,12 +40,6 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QLabel" name="albumCover">
-         <property name="maximumSize">
-          <size>
-           <width>150</width>
-           <height>150</height>
-          </size>
-         </property>
          <property name="text">
           <string>AlbumCover</string>
          </property>
@@ -137,7 +102,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>130</y>
+        <y>140</y>
         <width>111</width>
         <height>26</height>
        </rect>

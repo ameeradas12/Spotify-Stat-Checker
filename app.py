@@ -39,17 +39,21 @@ class StatsWindow(QWidget):
             data = requests.get(currentTrack["albumCover"]).content
             pixmap = QPixmap()
             pixmap.loadFromData(data)
-            pixmap = pixmap.scaled(150, 150,
-            Qt.AspectRatioMode.KeepAspectRatio,
-            Qt.TransformationMode.SmoothTransformation)
+            pixmap = pixmap.scaled(120,120,
+                       Qt.AspectRatioMode.KeepAspectRatio,
+                       Qt.TransformationMode.SmoothTransformation)
             self.albumCover.setPixmap(pixmap)
     
     def __init__(self):
         super().__init__()
         uic.loadUi("stats.ui", self)
+        self.albumCover.setFixedSize(120,120)
         self.load_data()
         self.range_box.currentIndexChanged.connect(self.load_data)
         self.update_now_playing()
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.update_now_playing)
+        self.timer.start(5000)
 
 
 app = QApplication(sys.argv)
