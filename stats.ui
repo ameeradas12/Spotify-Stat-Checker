@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1125</width>
-    <height>666</height>
+    <width>1121</width>
+    <height>669</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,6 +16,9 @@
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
     <widget class="QFrame" name="MainFrame">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="frameShape">
       <enum>QFrame::Shape::StyledPanel</enum>
      </property>
@@ -26,10 +29,13 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>9</y>
-        <width>1061</width>
+        <y>10</y>
+        <width>1081</width>
         <height>131</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::Shape::StyledPanel</enum>
@@ -40,6 +46,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QLabel" name="albumCover">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="text">
           <string>AlbumCover</string>
          </property>
@@ -75,7 +84,7 @@
        <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -83,7 +92,11 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QListWidget" name="trackList"/>
+         <widget class="QListWidget" name="trackList">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -93,7 +106,11 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QListWidget" name="artistList"/>
+         <widget class="QListWidget" name="artistList">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -101,7 +118,7 @@
      <widget class="QComboBox" name="range_box">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>140</y>
         <width>111</width>
         <height>26</height>
@@ -123,6 +140,9 @@
        </property>
       </item>
      </widget>
+     <zorder>topArtistsTab</zorder>
+     <zorder>range_box</zorder>
+     <zorder>CurrentSongFrame</zorder>
     </widget>
    </item>
   </layout>

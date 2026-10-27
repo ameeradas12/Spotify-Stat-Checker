@@ -8,69 +8,65 @@ Built with Python, PyQt6 and the Spotify Web API.
 
 ## Features
 
-- **Log in with Spotify:** secure OAuth login, so the app never sees your password
+- **Log in with Spotify:** secure OAuth login (PKCE), so the app never sees your password and needs no client secret
 - **Top tracks and artists:** your top 10 over the last 4 weeks, 6 months or year
 - **Now playing:** shows the song you're listening to with its album cover, updated every 5 seconds
-- **Designed in Qt Designer:** the layout lives in `stats.ui`, separate from the logic. Change it how you like. I used pyside6-designer.
+- **First-launch setup:** asks for your Spotify Client ID once and remembers it
+- **Custom dark theme:** styled with Qt Style Sheets in `style.qss`
+- **Designed in Qt Designer:** the layout lives in `stats.ui`, separate from the logic. Change it how you like. I used `pyside6-designer`.
+
+## Download
+
+Grab the latest `.exe` from the [Releases](https://github.com/ameeradas12/Spotify-Stat-Checker/releases) page. 
+
+### First launch
+The app asks for a Spotify **Client ID**. Spotify only lets approved accounts use each developer app, so you need your own (free, about 5 minutes):
+
+1. Go to the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard) and log in.
+2. Click **Create app**.
+3. Set the **Redirect URI** to `http://127.0.0.1:8888/callback`.
+4. Select **Web API**, then save.
+5. Open the app's **Settings**, copy the **Client ID**, and paste it into Stats Viewer. You don't need the Client Secret.
+
+A browser window then opens so you can log in to Spotify and approve access.
+
+**Entered the wrong ID?** Delete `%APPDATA%\SpotifyStatsViewer\settings.json` and restart the app.
 
 ## Tech Stack
 
 - **Python 3.12+**
 - **PyQt6:** desktop UI
 - **Spotipy:** Spotify Web API client (handles OAuth and token refresh)
-- **python-dotenv:** loads API keys from a `.env` file
 - **Requests:** downloads album art
+- **PyInstaller:** builds the `.exe`
 
-## Setup
+## Run from Source
 
-### 1. Create a Spotify developer app
-1. Go to the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard) and log in.
-2. Click **Create app**.
-3. Set the **Redirect URI** to `http://127.0.0.1:8888/callback`.
-4. Select **Web API**, then save.
-5. Open the app's **Settings** and copy your **Client ID** and **Client Secret**.
+You'll still need a Client ID; see [First launch](#first-launch) above.
 
-### 2. Clone and install
 ```bash
 git clone https://github.com/ameeradas12/Spotify-Stat-Checker.git
-cd Spotify-Stats-Viewer
+cd Spotify-Stat-Checker
 python -m venv .venv
 .venv\Scripts\activate
-pip install spotipy python-dotenv PyQt6 requests
-```
-
-### 3. Add your keys
-Create a `.env` file in the project folder:
-```
-SPOTIPY_CLIENT_ID=your_client_id
-SPOTIPY_CLIENT_SECRET=your_client_secret
-SPOTIPY_REDIRECT_URI=http://127.0.0.1:8888/callback
-```
-> Don't commit your `.env` file. It's already listed in `.gitignore`.
-
-### 4. Run it
-```bash
+pip install spotipy PyQt6 requests
 python app.py
 ```
-The first time, a browser window opens so you can log in to Spotify and approve access.
+The app asks for your Client ID on first launch, the same as the exe.
 
-## Project Structure
+## Building the .exe
 
+```bash
+pip install pyinstaller
+pyinstaller --onefile --windowed --name "SpotifyStatsViewer" --add-data "stats.ui;." --add-data "style.qss;." --exclude-module PySide6 app.py
 ```
-├── app.py       # The PyQt window: loads the UI wires up signals, timer
-├── main.py      # Spotify API logic: login, top tracks/artists, now playing
-├── stats.ui     # UI layout made in Qt Designer
-└── .env         # Your API keys (not committed)
-```
-
-## Notes
-
-- Spotify's API doesn't provide play counts, so the top lists are ranked by Spotify's own listening calculation.
+The exe is created in the `dist` folder.
 
 ## Planned Features
 
-- Album art icons in the top tracks list
-- Paused indicator on the now playing card
-- Recently played tab
-- Lifetime stats from Spotify's extended streaming history export
-- Progress bar on currently playing song
+- [ ] "Change Client ID" button in the app
+- [ ] Album art icons in the top tracks list
+- [ ] Paused indicator on the now playing card
+- [ ] Recently played tab
+- [ ] Lifetime stats from Spotify's extended streaming history export
+- [ ] Progress bar on the currently playing song

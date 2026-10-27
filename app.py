@@ -2,14 +2,20 @@ import sys
 import requests
 
 from PyQt6.QtWidgets import (
-    QApplication, QWidget,
+    QApplication, QWidget, QInputDialog,
 )
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QPixmap
 from PyQt6 import uic
+import os
 
+def resource_path(name):
+    # When running as an exe, PyInstaller unpacks files into sys._MEIPASS
+    base = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base, name)
 
-from main import get_top_artists, get_top_tracks, getNowPlaying
+from main import get_top_artists, get_top_tracks, getNowPlaying, connect
+from settings import load_client_id, save_client_id
 
 class StatsWindow(QWidget):
     def load_data(self):
@@ -46,7 +52,7 @@ class StatsWindow(QWidget):
     
     def __init__(self):
         super().__init__()
-        uic.loadUi("stats.ui", self)
+        uic.loadUi(resource_path("stats.ui"), self)      
         self.albumCover.setFixedSize(120,120)
         self.load_data()
         self.range_box.currentIndexChanged.connect(self.load_data)
@@ -57,7 +63,23 @@ class StatsWindow(QWidget):
 
 
 app = QApplication(sys.argv)
+client_id = load_client_id()
+if client_id is None:
+    text, ok = QInputDialog.getText(
+        None, 
+        "Spotify Stats Viewer Setup",
+        "Paste your Spotify Client Id from 'developer.spotify.com/dashboard'"
+    )
+    if not ok or not text.strip():
+        sys.exit()
+    client_id = text.strip()
+    save_client_id(client_id)
+
+connect(client_id)
 window = StatsWindow()
+with open(resource_path("style.qss")) as f:
+    app.setStyleSheet(f.read())
+
 window.show()
 sys.exit(app.exec())
 
