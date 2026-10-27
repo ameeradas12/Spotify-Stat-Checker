@@ -56,4 +56,3 @@ if __name__== "__main__":
 
 #album name = item,album,name
 #album coiver = item,album,images,[1][url]
-print(getNowPlaying())

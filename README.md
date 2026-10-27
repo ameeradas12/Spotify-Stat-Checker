@@ -32,7 +32,7 @@ Built with Python, PyQt6 and the Spotify Web API.
 
 ### 2. Clone and install
 ```bash
-git clone https://github.com/YOUR-USERNAME/Spotify-Stats-Viewer.git
+git clone https://github.com/ameeradas12/Spotify-Stat-Checker.git
 cd Spotify-Stats-Viewer
 python -m venv .venv
 .venv\Scripts\activate
